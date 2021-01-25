@@ -1,4 +1,3 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Bank {
@@ -8,8 +7,11 @@ public class Bank {
 
     //Withdraw function
     public double withdraw (double balance, double withdrawAmt){ 
-        if (balance<withdrawAmt) {
-            System.out.print("Sorry, you cannot withdraw " + withdrawAmt + "without overdrafting.");
+        if (balance < withdrawAmt) {
+            System.out.print("Sorry, you cannot withdraw $"); 
+            System.out.printf("%.2f", withdrawAmt);
+            System.out.print(" without overdrafting.");
+            System.out.println("\n");
             return balance;
         }
         balance-=withdrawAmt;
@@ -17,6 +19,7 @@ public class Bank {
         System.out.printf("%.2f", withdrawAmt);
         System.out.print(". Your new balance is: $");
         System.out.printf("%.2f", balance);
+        System.out.println("\n");
         return balance;
     }
 
@@ -27,15 +30,16 @@ public class Bank {
         System.out.printf("%.2f", depositAmt);
         System.out.print(". Your new balance is: $");
         System.out.printf("%.2f", balance);
+        System.out.println("\n");
        return balance;
     }
     //Checking the balance function
     public double checkBalance (double balance){
         System.out.print("Your current balance: $");
         System.out.printf("%.2f", balance);
+        System.out.println("\n");
         return balance;
     }
-
     public static void main(String[] args) {
         Bank myAccount = new Bank();
         Scanner input = new Scanner(System.in);
@@ -59,8 +63,13 @@ public class Bank {
                 System.out.println("Invalid input. Please enter a valid name consisting of letters. ");
             }
         }
+
+        //Capitalize the name
         char first = myAccount.name.charAt(0);
-        myAccount.name = myAccount.name.replace(first, Character.toUpperCase(first)); 
+        char firstUpper = Character.toUpperCase(first);
+        String firstString = Character.toString(first);
+        String firstUpperString = Character.toString(firstUpper);
+        myAccount.name = myAccount.name.replaceFirst(firstString, firstUpperString); 
         
         while (true){
             System.out.print(myAccount.name + ", enter your current balance: $"); 
@@ -82,7 +91,7 @@ public class Bank {
             try {
                 actions = Integer.parseInt(actionsStr);
             } catch (NumberFormatException e){
-                System.out.println("Invalid input. Please enter either 1,2,3, or 4 please.");
+                System.out.println("Invalid input. Please enter either 1, 2, 3, or 4 please.");
                 continue;
             }
             if (actions == 1){
